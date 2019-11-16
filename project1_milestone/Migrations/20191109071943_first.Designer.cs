@@ -9,21 +9,22 @@ using project1_milestone.Data;
 namespace project1_milestone.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20191102075539_first")]
+    [Migration("20191109071943_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099");
 
             modelBuilder.Entity("project1_milestone.Models.Device.Device", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("DeviceName");
+                    b.Property<string>("DeviceName")
+                        .IsRequired();
 
                     b.Property<int>("UserId");
 
@@ -39,9 +40,11 @@ namespace project1_milestone.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -53,9 +56,11 @@ namespace project1_milestone.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -67,9 +72,11 @@ namespace project1_milestone.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -81,9 +88,11 @@ namespace project1_milestone.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -115,17 +124,30 @@ namespace project1_milestone.Migrations
 
                     b.Property<DateTime>("Birthday");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("IDN")
+                        .IsRequired()
+                        .HasMaxLength(12);
 
                     b.Property<string>("Middlename");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Nationality");
+                    b.Property<string>("Nationality")
+                        .IsRequired();
 
-                    b.Property<string>("Phone");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
-                    b.Property<string>("Surname");
+                    b.Property<string>("Phone")
+                        .IsRequired();
+
+                    b.Property<string>("Surname")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

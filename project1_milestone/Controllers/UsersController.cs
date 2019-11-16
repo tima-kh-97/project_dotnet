@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -54,8 +55,9 @@ namespace project1_milestone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Middlename,Phone,Email,Nationality,Birthday")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Middlename,IDN,Phone,Email,Nationality,Birthday,Password")] User user)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -63,6 +65,20 @@ namespace project1_milestone.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
+        }
+
+        [AllowAnonymous]
+        [AcceptVerbs("GET","POST")]
+        public async Task<ActionResult> VerifyForExistence(string Phone)
+        {
+            var dbUser = await _context.User.FirstOrDefaultAsync(u => u.Phone == Phone);
+
+            if (dbUser != null)
+            {
+                return Json("This phone number was registered before!");
+            }
+
+            return Json(true);
         }
 
         // GET: Users/Edit/5

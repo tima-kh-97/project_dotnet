@@ -14,9 +14,11 @@ namespace project1_milestone.Models.Visit
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "VisitDate")]
         public DateTime VisitDate { get; set; }
 
+        [Required]
         [Display(Name = "UserId")]
         public int UserId { get; set; }
 

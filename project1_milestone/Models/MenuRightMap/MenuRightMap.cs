@@ -12,11 +12,13 @@ namespace project1_milestone.Models.MenuRightMap
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "MenuId")]
         public int MenuId { get; set; }
 
         public Menu.Menu Menu { get; set; }
 
+        [Required]
         [Display(Name = "RightId")]
         public int RightId { get; set; }
 

@@ -12,11 +12,13 @@ namespace project1_milestone.Models.UserRoleMap
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "UserId")]
         public int UserId { get; set; }
 
         public User.User User { get; set; }
 
+        [Required]
         [Display(Name = "RoleId")]
         public int RoleId { get; set; }
 
