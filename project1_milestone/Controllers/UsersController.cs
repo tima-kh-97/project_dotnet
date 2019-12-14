@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,10 @@ namespace project1_milestone.Controllers
             {
                 return NotFound();
             }
+
+            HttpContext.Session.SetString("user", "Hello! " + user.Surname + " " + user.Name);
+            ViewData["myUser"] = HttpContext.Session.GetString("user");
+            TempData["user"] = user.IDN;
 
             return View(user);
         }
