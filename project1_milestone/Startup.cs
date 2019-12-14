@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using project1_milestone.Data;
 using project1_milestone.Repository;
 using project1_milestone.Services;
+using project1_milestone.Hubs;
+
 
 namespace project1_milestone
 {
@@ -37,6 +39,8 @@ namespace project1_milestone
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,10 +58,20 @@ namespace project1_milestone
                     name: "default",
                     template: "{controller=Users}/{action=Index}/{id?}"
                 );
+                routes.MapRoute
+                (
+                    name: "/chat",
+                    template: "{controller=Chat}/{action=Index}/{id?}"
+                );
             });
 
             app.UseStaticFiles();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
+            
+          
         }
     }
 }

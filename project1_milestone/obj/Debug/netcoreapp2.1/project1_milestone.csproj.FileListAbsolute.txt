@@ -65,3 +65,5 @@ C:\Users\tima-\source\repos\project_dotnet\project1_milestone\obj\Debug\netcorea
 C:\Users\tima-\source\repos\project_dotnet\project1_milestone\obj\Debug\netcoreapp2.1\project1_milestone.dll
 C:\Users\tima-\source\repos\project_dotnet\project1_milestone\obj\Debug\netcoreapp2.1\project1_milestone.pdb
 C:\Users\tima-\source\repos\project_dotnet\project1_milestone\obj\Debug\netcoreapp2.1\project1_milestone.csproj.CopyComplete
+C:\Users\tima-\source\repos\project_dotnet\project1_milestone\obj\Debug\netcoreapp2.1\Razor\Pages\Index.g.cshtml.cs
+C:\Users\tima-\source\repos\project_dotnet\project1_milestone\obj\Debug\netcoreapp2.1\Razor\Views\Chat\Index.g.cshtml.cs
