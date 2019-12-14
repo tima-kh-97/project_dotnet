@@ -8,22 +8,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using project1_milestone.Data;
 using project1_milestone.Models.User;
+using project1_milestone.Services;
 
 namespace project1_milestone.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly DBContext _context;
 
-        public UsersController(DBContext context)
+        private UsersService _usersService;
+
+        public UsersController(UsersService usersService)
         {
-            _context = context;
+            _usersService = usersService;
         }
 
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            return View(_usersService.GetUsersList());
         }
 
         // GET: Users/Details/5
@@ -34,8 +36,8 @@ namespace project1_milestone.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = _usersService.GetDetails(id);
+
             if (user == null)
             {
                 return NotFound();
@@ -60,8 +62,7 @@ namespace project1_milestone.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                _usersService.Create(user);
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
@@ -71,12 +72,11 @@ namespace project1_milestone.Controllers
         [AcceptVerbs("GET","POST")]
         public async Task<ActionResult> VerifyForExistence(string Phone)
         {
-            var dbUser = await _context.User.FirstOrDefaultAsync(u => u.Phone == Phone);
-
-            if (dbUser != null)
+            var user = await _usersService.VerifyForExistence(Phone);
+            if (user != null)
             {
                 return Json("This phone number was registered before!");
-            }
+            } 
 
             return Json(true);
         }
@@ -89,7 +89,8 @@ namespace project1_milestone.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User.FindAsync(id);
+            var user = _usersService.Edit(id);
+
             if (user == null)
             {
                 return NotFound();
@@ -113,8 +114,7 @@ namespace project1_milestone.Controllers
             {
                 try
                 {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
+                    _usersService.Edit(user);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -140,8 +140,7 @@ namespace project1_milestone.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = _usersService.Delete(id);
             if (user == null)
             {
                 return NotFound();
@@ -155,15 +154,13 @@ namespace project1_milestone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
+             _usersService.DeleteConfirmed(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(int id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _usersService.UserExists(id);
         }
     }
 }

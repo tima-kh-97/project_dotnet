@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using project1_milestone.Data;
+using project1_milestone.Repository;
+using project1_milestone.Services;
 
 namespace project1_milestone
 {
@@ -25,6 +27,8 @@ namespace project1_milestone
                 options.UseSqlite("Filename=dmp_db.db");
             });
             services.AddMvc();
+            services.AddScoped<UsersService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
